@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    volumes:
+      # Only for DEV!
+      - ./:/code
+    command: bash -c "pipenv run pytest -v && pipenv run flask run"
+  # postgresql:
+  #   image: "postgresql:alpine"
