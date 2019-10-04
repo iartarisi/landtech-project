@@ -53,7 +53,8 @@ def fetch_features():
     for (x, y, p) in places:
         point = Point((x, y))
         perc = percentile(p)
-        feature = Feature(geometry=point, properties={'price': p, 'percentile': perc})
+        feature = Feature(
+            geometry=point, properties={'price': p, 'percentile': perc})
         features.append(feature)
 
     feature_collection = FeatureCollection(features)

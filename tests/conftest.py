@@ -1,5 +1,5 @@
 import pytest
-from landtech.web import app, create_app
+from landtech.web import app
 
 
 @pytest.fixture

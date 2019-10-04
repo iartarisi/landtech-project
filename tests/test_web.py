@@ -1,5 +1,6 @@
 from landtech import web
 
+
 def test_places(client):
     # When making a GET request to the 'places' index
     resp = client.get('/places/', json=True)
@@ -21,6 +22,7 @@ def test_places(client):
         'geometry': {'coordinates': [60, 75], 'type': 'Point'},
         'properties': {'price': 7516381, 'percentile': 75},
         'type': 'Feature'}
+
 
 def test_post(client):
     # Given a valid place
