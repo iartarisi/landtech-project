@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from geojson import Point, Feature, FeatureCollection
 import numpy as np
 
@@ -9,6 +9,9 @@ def create_app():
 
 
 app = create_app()
+
+
+DATABASE_FILE = 'sold-price-data.txt'
 
 
 def percentiles(prices, percs=None):
@@ -36,7 +39,7 @@ def percentiles(prices, percs=None):
 def fetch_features():
     """Return a FeatureCollection with all the data we have"""
     places = []
-    with open('sold-price-data.txt') as f:
+    with open(DATABASE_FILE) as f:
         for line in f:
             # TODO add validation
             x, y, p = line.split()
@@ -57,7 +60,7 @@ def fetch_features():
     return feature_collection
 
 
-@app.route('/places/')
+@app.route('/places/', methods=['GET'])
 def places_index():
     """Return all the places in the database
 
@@ -69,3 +72,25 @@ def places_index():
     feature_collection = fetch_features()
     resp = {'price_data': feature_collection}
     return jsonify(resp)
+
+
+@app.route('/places/', methods=['POST'])
+def places_post():
+    """Create a new place
+
+    Expects a GeoJSON Feature
+    """
+    body = request.get_json()
+    feature = Feature(**body)
+
+    # XXX add more validation
+    if not feature.is_valid:
+        return {'error': 'Invalid GeoJSON. Expected a Feature.'}, 400
+
+    x, y = feature['geometry']['coordinates']
+    p = feature['properties']['price']
+
+    with open(DATABASE_FILE, 'a') as df:
+        df.write(f"{x} {y} {p}\n")
+
+    return '', 201
