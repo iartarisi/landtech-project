@@ -7,6 +7,7 @@ name = "pypi"
 flask = "*"
 pytest = "*"
 geojson = "*"
+numpy = "*"
 
 [dev-packages]
 
