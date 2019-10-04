@@ -7,9 +7,9 @@ def test_places(client):
     # Then the response will contain all the features
     assert resp.status_code == 200
     resp_json = resp.get_json()
-    assert 'price_data' in resp_json
-    assert resp_json['price_data']['type'] == 'FeatureCollection'
-    features = resp_json['price_data']['features']
+    assert 'places' in resp_json
+    assert resp_json['places']['type'] == 'FeatureCollection'
+    features = resp_json['places']['features']
     assert len(features) == 2500
     feature1 = features[0]
     assert feature1 == {
@@ -42,7 +42,7 @@ def test_post(client):
 
     # And a subsequent request will return the new place
     resp = client.get('/places/', json=True)
-    new_feature = resp.get_json()['price_data']['features'][-1]
+    new_feature = resp.get_json()['places']['features'][-1]
     # can't assert on percentile because it's non-deterministic
     del new_feature['properties']['percentile']
     assert new_feature == feature

@@ -64,13 +64,13 @@ def fetch_features():
 def places_index():
     """Return all the places in the database
 
-    Returns a {'price_data': GeoJSON document} JSON
+    Returns a {'places': GeoJSON document} JSON
     """
     # this isn't realistic; I don't think there would be an occasion
     # where we'd want to retrieve all of the places. This method would
     # have to require some sort of filtering
     feature_collection = fetch_features()
-    resp = {'price_data': feature_collection}
+    resp = {'places': feature_collection}
     return jsonify(resp)
 
 
