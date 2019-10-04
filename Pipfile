@@ -4,10 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
+Flask = "*"
 pytest = "*"
 geojson = "*"
 numpy = "*"
+markdown2 = "*"
 
 [dev-packages]
 

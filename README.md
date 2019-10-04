@@ -50,7 +50,7 @@ POST /places/
 
 ## Considerations/TODO
 
-The GeoJSON has the advantages of being a __standard__ way of representing points and other location-data (presumably what other LandTech features will build upon). It is easily extensible so allows for augmenting the existing data.
+The API uses [GeoJSON](https://geojson.org/). This has the advantages of being a __standard__ way of representing points and other location-data (presumably what other LandTech features will build upon). It is easily extensible so allows for augmenting the existing data.
 
 Another binary format could be devised if network performance/transited data was a concern. In the exercise example, there are 10000 possible data points so it should be easy to devise a format which would remove the need for specifying each point's location (e.g. specifying the relative location of the next point or specifying all prices and having a blank code for missing prices).
 
@@ -69,6 +69,8 @@ There are more tests that can be written: invalid GeoJSON values, invalid json, 
 There is more validation to be done in the POST endpoint.
 
 The API could be documented using the OpenAPI specification. Ideally, a web framework which would generate the API docs from the code would be used so that the docs don't go out of sync with the code.
+
+I think colours are a UI concern, so the API does not try to choose a representation for each percentile. Furthermore, the percentiles are hardcoded in the backend, but should probably be taken as parameters to the existing endpoint.
 
 ## Testing
 

@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from geojson import Point, Feature, FeatureCollection
 import numpy as np
+import markdown2
 
 
 def create_app():
@@ -12,6 +13,16 @@ app = create_app()
 
 
 DATABASE_FILE = 'sold-price-data.txt'
+
+
+@app.route('/')
+def index():
+    """Dummy index parsing the readme every time"""
+    mk = markdown2.Markdown()
+    with open('README.md') as f:
+        html = mk.convert(f.read())
+
+    return html, 200
 
 
 def percentiles(prices, percs=None):
